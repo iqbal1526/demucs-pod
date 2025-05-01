@@ -9,6 +9,11 @@ DEVICE = torch.device("cuda")
 # Load Demucs once on startup
 model = get_model("htdemucs_6s").to(DEVICE).eval()
 
+@app.get("/ping")
+async def ping():
+    return {"message": "pong"}
+
+
 @app.post("/separate")
 async def separate(file: UploadFile = File(...)):
     job_id = uuid.uuid4().hex
